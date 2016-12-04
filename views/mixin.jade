@@ -1,0 +1,45 @@
+mixin tab_item(href, active)
+    li(class=active): a(href=href, data-toggle='tab')
+        block
+
+mixin table(header, data, type)
+    -var type = type || '' 
+    table.table(class=type)
+        thead
+            tr
+                each head, i in header 
+                    th=head
+        tbody
+            each row, j in data
+                tr
+                    each col, k in row
+                        td=col
+
+mixin table-condensed-bordered(header,data)
+    +table(header, data, 'table-condensed table-bordered')
+
+mixin table-striped(header,data)
+    +table(header, data, 'table-striped')
+
+mixin tab_div(i, header1, data1)
+    .tab-pane.fade(id='menu'+i, class='in active')
+        .col-md-12.scroll-div
+            +table-condensed-bordered(header1, data1)
+            
+mixin tab_chart(i, header1, data1, style)
+    .tab-pane.fade(id='menu'+i)
+        .col-md-6.scroll-div
+            +table-condensed-bordered(header1, data1)
+        .col-md-6(style='padding-right: 0')
+            div(id='chart'+i, style=style)
+
+mixin tab_koef(i, header1, data1, header2, data2, style)
+    .tab-pane.fade(id='menu'+i)
+        .col-md-6.scroll-div
+            +table-condensed-bordered(header1, data1)
+        .col-md-6(style='padding-right: 0')
+            +table-striped(header2, data2)
+            div(id='chart'+i, style=style)
+
+
+

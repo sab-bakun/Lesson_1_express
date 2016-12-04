@@ -1,0 +1,28 @@
+include mixin
+
+doctype html
+html
+  head
+    title Lesson1
+    meta(charset='utf-8')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='//code.highcharts.com/highcharts.js')
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+  body
+    .container
+      form(action='/', method='post', enctype='multipart/form-data')
+        .page-header
+          .btn-toolbar.pull-right
+            label.btn.btn-primary.btn-file Browse
+              input(type='file' name='fileInput' onchange='this.form.submit()' style='display: none')
+          h2 Lesson 1
+        block content
+
+style(type='text/css').
+  .scroll-div {
+      overflow: scroll;
+      height: 460px;
+      padding: 0;
+  }
+

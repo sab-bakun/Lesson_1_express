@@ -1,0 +1,130 @@
+extends layout
+
+block content
+  ul.nav.nav-tabs
+    +tab_item('#menu1', 'active') Данные
+    +tab_item('#menu2') Инфляция
+    +tab_item('#menu3') Сезонность и тренд
+    +tab_item('#menu4') Влияние тренда
+    +tab_item('#menu5') Регрессии
+    +tab_item('#menu6') Множ.регрессии
+
+  .tab-content
+    -if(data)
+      +tab_div(1, data.table1[0], data.table1[1])
+      +tab_koef(2, data.table2[0], data.table2[1], data.table2_1[0], data.table2_1[1], 'height: 350px')
+      +tab_koef(3, data.table3[0], data.table3[1], data.table3_1[0], data.table3_1[1], 'height: 350px')
+      +tab_chart(4, data.table4[0], data.table4[1], 'height:430px; padding-top: 25px')
+      +tab_koef(5, data.table5[0], data.table5[1], data.table5_1[0], data.table5_1[1], 'height: 300px')
+      +tab_koef(6, data.table6[0], data.table6[1], data.table6_1[0], data.table6_1[1], 'height: 320px')
+        
+  script(type="text/javascript").
+    $(function () {
+      //- Initialization chart on page 2
+      var x = [#{chart2.x}];
+      var name = '#{chart2.name}'.split(';');
+      var _y = [#{chart2.y}];
+      var y = [];
+      for (var i = 0; i < #{chart2.y.length}; ++i) {
+        y[i] = [];
+        for (var j = 0; j < #{chart2.y[0].length}; ++j) {
+          y[i][j] = _y[#{chart2.y[0].length} * i + j];
+        }
+      }
+      var Y = [];
+      for(var i = 0; i < name.length; ++i) {
+        Y.push({name: name[i], data: y[i]});
+      }
+      createChart('chart2', x, Y);
+
+      //- Initialization chart on page 3
+      x = [#{chart3.x}];
+      name = '#{chart3.name}'.split(';');
+      _y = [#{chart3.y}];
+      y = [];
+      for (var i = 0; i < #{chart3.y.length}; ++i) {
+        y[i] = [];
+        for (var j = 0; j < #{chart3.y[0].length}; ++j) {
+          y[i][j] = _y[#{chart3.y[0].length} * i + j];
+        }
+      }
+      Y = [];
+      for(var i = 0; i < name.length; ++i) {
+        Y.push({name: name[i], data: y[i]});
+      }
+      createChart('chart3', x, Y);
+
+      //- Initialization chart on page 4
+      x = [#{chart4.x}];
+      name = '#{chart4.name}'.split(';');
+      _y = [#{chart4.y}];
+      y = [];
+      for (var i = 0; i < #{chart4.y.length}; ++i) {
+        y[i] = [];
+        for (var j = 0; j < #{chart4.y[0].length}; ++j) {
+          y[i][j] = _y[#{chart4.y[0].length} * i + j];
+        }
+      }
+      Y = [];
+      for(var i = 0; i < name.length; ++i) {
+        Y.push({name: name[i], data: y[i]});
+      }
+      createChart('chart4', x, Y);
+
+      //- Initialization chart on page 5
+      x = [#{chart5.x}];
+      name = '#{chart5.name}'.split(';');
+      _y = [#{chart5.y}];
+      y = [];
+      for (var i = 0; i < #{chart5.y.length}; ++i) {
+        y[i] = [];
+        for (var j = 0; j < #{chart5.y[0].length}; ++j) {
+          y[i][j] = _y[#{chart5.y[0].length} * i + j];
+        }
+      }
+      Y = [];
+      for(var i = 0; i < name.length; ++i) {
+        Y.push({name: name[i], data: y[i]});
+      }
+      createChart('chart5', x, Y);
+
+      //- Initialization chart on page 6
+      x = [#{chart6.x}];
+      name = '#{chart6.name}'.split(';');
+      _y = [#{chart6.y}];
+      y = [];
+      for (var i = 0; i < #{chart6.y.length}; ++i) {
+        y[i] = [];
+        for (var j = 0; j < #{chart6.y[0].length}; ++j) {
+          y[i][j] = _y[#{chart6.y[0].length} * i + j];
+        }
+      }
+      Y = [];
+      for(var i = 0; i < name.length; ++i) {
+        Y.push({name: name[i], data: y[i]});
+      }
+      createChart('chart6', x, Y);
+    });
+
+    var createChart = function(id, x, Y) {
+      Highcharts.chart(id, {
+        chart: {
+          width: 555
+        },
+        title: {
+          text: ''
+        },
+        xAxis: {
+          categories: x
+        },
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: false
+            }
+          }
+        },
+        series: Y
+      });
+    }
+
